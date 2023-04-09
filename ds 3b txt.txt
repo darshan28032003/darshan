@@ -1,0 +1,83 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+int data;
+struct node*link;
+};
+typedef struct node NODE;
+NODE*first=NULL;
+NODE*second=NULL;
+NODE*res=NULL;
+NODE*newnode(int data){
+NODE*new_node=(NODE*)malloc(sizeof(NODE));
+new_node->data=data;
+new_node->link=NULL;
+return new_node;
+}
+void insfront(NODE* *head_ref,int new_data)
+{
+NODE *new_node=newnode(new_data);
+new_node->link=*head_ref;
+*head_ref=new_node;
+}
+NODE*addtwolists(NODE*first,NODE*second)
+{
+NODE*res=NULL;
+NODE*temp;
+int carry=0,sum;
+while(first != NULL || second != NULL)
+{
+sum=carry+(first?first->data:0)+(second?second->data:0);
+carry=(sum>=10)?1:0;
+sum=sum%10;
+temp=newnode(sum);
+if(res==NULL)
+res=temp;
+else
+{
+temp->link=res;
+res=temp;
+}
+if(first)
+first=first->link;
+if(second)
+second=second->link;
+}
+if(carry>0)
+{
+temp=newnode(carry);
+temp->link=res;
+res=temp;
+}
+return res;
+}
+void printlist(NODE*node)
+{
+while(node!=NULL)
+{
+printf("%d",node->data);
+node=node->link;
+}
+printf("\n");
+}
+int main(void)
+{
+insfront(&first,6);
+insfront(&first,4);
+insfront(&first,9);
+insfront(&first,5);
+insfront(&first,7);
+printf("first list is\n");
+printlist(first);
+insfront(&second,7);
+insfront(&second,2);
+insfront(&second,1);
+insfront(&second,4);
+insfront(&second,8);
+printf("second list\n");
+printlist(second);
+res=addtwolists(first,second);
+printf("resultant list is\n");
+printlist(res);
+}

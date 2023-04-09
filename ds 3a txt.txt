@@ -1,0 +1,79 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+int info;
+struct node*link;
+};
+struct node*root=NULL;
+int c=0;
+void display()
+{
+struct node*temp;
+if(root==NULL)
+printf("list is empty\n");
+else
+{
+temp=root;
+while(temp!=NULL)
+{
+printf("%d-->\t",temp->info);
+temp=temp->link;
+} } }
+void delfront() {
+struct node*temp;
+if(root==NULL)
+printf("list is empty");
+else
+{
+temp=root;
+printf("item deleted is %d\n",temp->info);
+root=temp->link;
+free(temp);
+c--; } }
+void insfront()
+{
+struct node*temp,*p;
+int i,loc;
+temp=(struct node*)malloc(sizeof(struct node));
+printf("enter the element\n");
+scanf("%d",&temp->info);
+temp->link=NULL;
+printf("enter the location\n");
+scanf("%d",&loc);
+if(loc>c+1||loc==0)
+printf("invalid location");
+else if(loc==1)
+{
+temp->link=root;
+root=temp;
+c++;
+}
+else{
+p=root;
+for(i=1;i<loc-1;i++)
+p=p->link;
+temp->link=p->link;
+p->link=temp;
+c++;
+} }
+int main()
+{
+int ch;
+while(1)
+{
+printf("1.insert\n2.delete\n3.display\n");
+printf("enter your choice\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:insfront();
+break;
+case 2:delfront();
+break;
+case 3:display();
+break;
+default:printf("enter a valid choice\n");
+exit(0);
+} } }

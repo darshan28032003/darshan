@@ -1,0 +1,57 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 5
+char cq[MAX], item;
+int ch, f = 0, r = -1, c = 0;
+void cqinsert() {
+ if(c == MAX) {
+ printf("Queue is full");
+ } else {
+ printf("Enter the element\n");
+ scanf(" %c", &item);
+ r = (r + 1) % MAX;
+ cq[r] = item;
+ c++;
+ } }
+void cqdelete() {
+ if(c == 0) {
+ printf("Queue is empty");
+ } else {
+ printf("The deleted element is %c", cq[f]);
+ f = (f + 1) % MAX;
+ c--;
+ }
+}
+void cqdisplay() {
+ if(c == 0) {
+ printf("Queue is empty");
+ } else {
+ int i = 1;
+ int X = f;
+ printf("The status of queue \n");
+ for(i = 1; i <= c; i++) {
+ printf("%c\t",cq[X]);
+ X = (X + 1) % MAX;
+ }
+ } }
+int main() {
+ for(;;) {
+ printf("\n1:Insert 2:Delete 3:Display\n");
+ printf("Enter your choice\n");
+ scanf("%d", &ch);
+ switch(ch) {
+ case 1:
+ cqinsert();
+ break;
+ case 2:
+ cqdelete();
+ break;
+ case 3:
+ cqdisplay();
+ break;
+ default:
+ printf("Invalid choice \n");
+ exit(0);
+ } 
+ } }
